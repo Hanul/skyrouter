@@ -1,0 +1,11 @@
+{
+    "name": "skyrouter",
+    "author": "Sim Young Jae",
+    "homepage": "https://github.com/Hanul/skyrouter",
+    "version": "0.0.1",
+    "types": "./lib/index.d.ts",
+    "main": "./lib/index.js",
+    "dependencies": {
+        "skyutil": "^0.0.3"
+    }
+}
