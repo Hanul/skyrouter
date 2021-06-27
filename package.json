@@ -6,6 +6,6 @@
     "types": "./lib/index.d.ts",
     "main": "./lib/index.js",
     "dependencies": {
-        "skyutil": "^0.0.3"
+        "skyutil": "^0.0.4"
     }
 }

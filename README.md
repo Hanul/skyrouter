@@ -5,4 +5,4 @@ yarn add skyrouter
 ```
 
 ## License
-MIT
+[MIT](LICENSE)
