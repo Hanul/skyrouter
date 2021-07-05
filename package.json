@@ -2,7 +2,7 @@
     "name": "skyrouter",
     "author": "Sim Young Jae",
     "homepage": "https://github.com/Hanul/skyrouter",
-    "version": "0.0.1",
+    "version": "0.0.5",
     "types": "./lib/index.d.ts",
     "main": "./lib/index.js",
     "dependencies": {

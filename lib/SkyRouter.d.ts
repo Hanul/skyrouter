@@ -3,7 +3,6 @@ declare type ViewType = new (...args: any[]) => View;
 declare class SkyRouter {
     private routes;
     private openingViews;
-    private match;
     constructor();
     check(preParams?: ViewParams): void;
     route(patterns: string | string[], viewType: ViewType, excludes?: string[]): void;

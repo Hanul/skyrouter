@@ -1,4 +1,5 @@
 import SkyUtil from "skyutil";
+import URIParser from "./URIParser";
 import View, { ViewParams } from "./View";
 
 type ViewType = new (...args: any[]) => View;
@@ -13,42 +14,10 @@ class SkyRouter {
 
     private openingViews: View[] = [];
 
-    private match(
-        uriParts: string[],
-        pattern: string,
-        params?: ViewParams,
-    ) {
-        const patternParts = pattern.split("/");
-
-        for (const [index, uriPart] of uriParts.entries()) {
-
-            const patternPart = patternParts[index];
-
-            if (patternPart === undefined) {
-                return false;
-            } else if (patternPart === "**") {
-                return true;
-            }
-
-            // find params.
-            if (uriPart !== "" && patternPart[0] === "{" && patternPart[patternPart.length - 1] === "}") {
-                if (params !== undefined) {
-                    params[patternPart.substring(1, patternPart.length - 1)] = uriPart;
-                }
-            } else if (patternPart !== "*" && patternPart !== uriPart) {
-                return false;
-            }
-
-            if (index === uriParts.length - 1 && index < patternParts.length - 1 && patternParts[patternParts.length - 1] !== "") {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     constructor() {
-        window.addEventListener("popstate", (event) => this.check(event.state === null ? {} : event.state));
+        if (typeof window !== "undefined" && typeof window.document !== "undefined") {
+            window.addEventListener("popstate", (event) => this.check(event.state === null ? {} : event.state));
+        }
     }
 
     public check(preParams?: ViewParams) {
@@ -60,8 +29,8 @@ class SkyRouter {
             const params: ViewParams = preParams === undefined ? {} : Object.assign({}, preParams);
             const openingView = this.openingViews.find((ov) => ov instanceof viewType);
             if (
-                patterns.find((pattern) => this.match(uriParts, pattern, params)) !== undefined &&
-                excludes.find((exclude) => this.match(uriParts, exclude)) === undefined
+                patterns.find((pattern) => URIParser.match(uriParts, pattern, params)) !== undefined &&
+                excludes.find((exclude) => URIParser.match(uriParts, exclude)) === undefined
             ) {
                 if (openingView === undefined) {
                     this.openingViews.push(new viewType(params, uri));
@@ -85,8 +54,8 @@ class SkyRouter {
         const uriParts = uri.split("/");
         const params: ViewParams = {};
         if (
-            patterns.find((pattern) => this.match(uriParts, pattern, params)) !== undefined &&
-            excludes.find((exclude) => this.match(uriParts, exclude)) === undefined
+            patterns.find((pattern) => URIParser.match(uriParts, pattern, params)) !== undefined &&
+            excludes.find((exclude) => URIParser.match(uriParts, exclude)) === undefined
         ) {
             this.openingViews.push(new viewType(params, uri));
         }
