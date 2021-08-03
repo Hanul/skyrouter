@@ -2,10 +2,11 @@
     "name": "skyrouter",
     "author": "Sim Young Jae",
     "homepage": "https://github.com/Hanul/skyrouter",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "types": "./lib/index.d.ts",
     "main": "./lib/index.js",
     "dependencies": {
+        "eventcontainer": "^0.0.4",
         "skyutil": "^0.0.4"
     }
 }

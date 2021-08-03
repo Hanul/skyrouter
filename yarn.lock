@@ -2,6 +2,18 @@
 # yarn lockfile v1
 
 
+eventcontainer@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/eventcontainer/-/eventcontainer-0.0.4.tgz#9b5fe22a51411e1cda7ed0872b11973b7d063b23"
+  integrity sha512-t4PRl3OBPvgebEx6of7rxzDwSt2HG4nwy3vfEHCkbmQOHqGgmrx2U3TsmMZAzjSnF03Ileja9BS5aiP5t0keLA==
+  dependencies:
+    skyutil "^0.0.1"
+
+skyutil@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/skyutil/-/skyutil-0.0.1.tgz#fdd8255b2eeac3ee06e3643427e34db0ee42ab8b"
+  integrity sha512-rcbUtbwiuOJs9rvZHzVUgV1UBhOa7KxnPEmQapfhzSwUAFM2THLNZuoF/8XMFEuznRqPMeYeABo8TFiFrgBL+w==
+
 skyutil@^0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/skyutil/-/skyutil-0.0.4.tgz#f40448e0721143b4d2b513b2fdd35b73010890ac"

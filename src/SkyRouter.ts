@@ -1,10 +1,11 @@
+import EventContainer from "eventcontainer";
 import SkyUtil from "skyutil";
 import URIParser from "./URIParser";
 import View, { ViewParams } from "./View";
 
 type ViewType = new (...args: any[]) => View;
 
-class SkyRouter {
+class SkyRouter extends EventContainer {
 
     private routes: {
         patterns: string[],
@@ -15,6 +16,7 @@ class SkyRouter {
     private openingViews: View[] = [];
 
     constructor() {
+        super();
         if (typeof window !== "undefined" && typeof window.document !== "undefined") {
             window.addEventListener("popstate", (event) => this.check(event.state === null ? {} : event.state));
         }
@@ -25,6 +27,8 @@ class SkyRouter {
         const uri = decodeURIComponent(location.pathname.substring(1));
         const uriParts = uri.split("/");
 
+        let viewCreated = false;
+
         for (const { patterns, excludes, viewType } of this.routes) {
             const params: ViewParams = preParams === undefined ? {} : Object.assign({}, preParams);
             const openingView = this.openingViews.find((ov) => ov instanceof viewType);
@@ -34,6 +38,7 @@ class SkyRouter {
             ) {
                 if (openingView === undefined) {
                     this.openingViews.push(new viewType(params, uri));
+                    viewCreated = true;
                 } else {
                     openingView.changeParams(params, uri);
                 }
@@ -41,6 +46,10 @@ class SkyRouter {
                 openingView.close();
                 SkyUtil.pull(this.openingViews, openingView);
             }
+        }
+
+        if (viewCreated === true) {
+            this.fireEvent("go");
         }
     }
 

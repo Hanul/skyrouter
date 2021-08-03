@@ -1,6 +1,7 @@
+import EventContainer from "eventcontainer";
 import View, { ViewParams } from "./View";
 declare type ViewType = new (...args: any[]) => View;
-declare class SkyRouter {
+declare class SkyRouter extends EventContainer {
     private routes;
     private openingViews;
     constructor();
