@@ -87,6 +87,26 @@ class SkyRouter extends EventContainer {
     public waitAndGo(uri: string, params?: ViewParams) {
         setTimeout(() => this.go(uri, params));
     }
+
+    public refresh() {
+
+        for (const openingView of this.openingViews.reverse()) {
+            openingView.close();
+        }
+        this.openingViews = [];
+
+        const uri = decodeURIComponent(location.pathname.substring(1));
+        const uriParts = uri.split("/");
+        for (const { patterns, excludes, viewType } of this.routes) {
+            const params: ViewParams = {};
+            if (
+                patterns.find((pattern) => URIParser.match(uriParts, pattern, params)) !== undefined &&
+                excludes.find((exclude) => URIParser.match(uriParts, exclude)) === undefined
+            ) {
+                this.openingViews.push(new viewType(params, uri));
+            }
+        }
+    }
 }
 
 export default new SkyRouter();

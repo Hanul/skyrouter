@@ -10,6 +10,7 @@ declare class SkyRouter extends EventContainer {
     go(uri: string, params?: ViewParams): void;
     goNoHistory(uri: string, params?: ViewParams): void;
     waitAndGo(uri: string, params?: ViewParams): void;
+    refresh(): void;
 }
 declare const _default: SkyRouter;
 export default _default;
