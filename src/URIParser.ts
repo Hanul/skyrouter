@@ -37,7 +37,7 @@ class URIParser {
     }
 
     public parse(uri: string, pattern: string, params: ViewParams) {
-        const uriParts = uri.split("/");
+        const uriParts = uri.split(".")[0].split("/");
         return this.match(uriParts, pattern, params);
     }
 }

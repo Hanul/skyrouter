@@ -1,5 +1,5 @@
 export interface ViewParams {
-    [name: string]: string;
+    [name: string]: string | undefined;
 }
 
 export default interface View {
